@@ -1,0 +1,62 @@
+let students = JSON.parse(localStorage.getItem("students")) || [];
+
+const table = document.getElementById("studentTable");
+const form = document.getElementById("studentForm");
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let student = {
+        id: Date.now(),
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        class: document.getElementById("class").value,
+        gender: document.getElementById("gender").value,
+        email: document.getElementById("email").value,
+        payment: document.getElementById("payment").value,
+        month: document.getElementById("month").value,
+        citizenship: document.getElementById("citizenship").value,
+        morning: document.getElementById("morning").value
+
+
+
+        
+    };
+
+    students.push(student);
+    localStorage.setItem("students", JSON.stringify(students));
+    displayStudents();
+    form.reset();
+});
+
+function displayStudents() {
+    table.innerHTML = "";
+    students.forEach((s, index) => {
+        table.innerHTML += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${s.name}</td>
+                <td>${s.age}</td>
+                <td>${s.gender}</td>
+
+                <td>${s.class}</td>
+                <td>${s.email}</td>
+                <td>${s.payment}</td>
+                <td>${s.month}</td>
+                <td>${s.citizenship}</td>
+                <td>${s.morning}</td>
+
+                <td>
+                    <button onclick="deleteStudent(${s.id})">Delete</button>
+                </td>
+            </tr>`;
+    });
+}
+
+function deleteStudent(id) {
+    students = students.filter(s => s.id !== id);
+    localStorage.setItem("students", JSON.stringify(students));
+    displayStudents();
+}
+
+displayStudents();
