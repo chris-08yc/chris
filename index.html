@@ -1,62 +1,49 @@
-let students = JSON.parse(localStorage.getItem("students")) || [];
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Database</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-const table = document.getElementById("studentTable");
-const form = document.getElementById("studentForm");
+<h1>ICT Student Cohort3 Database Management</h1>
 
-form.addEventListener("submit", function(e) {
-    e.preventDefault();
+<form id="studentForm">
+    <input type="text" id="name" placeholder="Student Name" required>
+    <input type="number" id="age" placeholder="Age" required>
+    <input type="text" id="class" placeholder="Class" required>
+    <input type="text" id="gender" placeholder="Gender" required>
+    <input type="text" id="email" placeholder="Email" required>
+    <input type="number" id="payment" placeholder="Payment" required>
+    <input type="text" id="month" placeholder="Month" required>
+    <input type="text" id="citizenship" placeholder="Citizenship" required>
+    <input type="text" id="morning" placeholder="Morning" required>
 
-    let student = {
-        id: Date.now(),
-        name: document.getElementById("name").value,
-        age: document.getElementById("age").value,
-        class: document.getElementById("class").value,
-        gender: document.getElementById("gender").value,
-        email: document.getElementById("email").value,
-        payment: document.getElementById("payment").value,
-        month: document.getElementById("month").value,
-        citizenship: document.getElementById("citizenship").value,
-        morning: document.getElementById("morning").value
+ 
 
+    <button type="submit">Add Student</button>
+</form>
 
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Class</th>
+            <th>Email</th>
+            <th>Payment</th>
+            <th>Month</th>
+            <th>Citizenship</th>
+            <th>Morning</th>
 
-        
-    };
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="studentTable"></tbody>
+</table>
 
-    students.push(student);
-    localStorage.setItem("students", JSON.stringify(students));
-    displayStudents();
-    form.reset();
-});
-
-function displayStudents() {
-    table.innerHTML = "";
-    students.forEach((s, index) => {
-        table.innerHTML += `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${s.name}</td>
-                <td>${s.age}</td>
-                <td>${s.gender}</td>
-
-                <td>${s.class}</td>
-                <td>${s.email}</td>
-                <td>${s.payment}</td>
-                <td>${s.month}</td>
-                <td>${s.citizenship}</td>
-                <td>${s.morning}</td>
-
-                <td>
-                    <button onclick="deleteStudent(${s.id})">Delete</button>
-                </td>
-            </tr>`;
-    });
-}
-
-function deleteStudent(id) {
-    students = students.filter(s => s.id !== id);
-    localStorage.setItem("students", JSON.stringify(students));
-    displayStudents();
-}
-
-displayStudents();
+<script src="script.js"></script>
+</body>
+</html>
